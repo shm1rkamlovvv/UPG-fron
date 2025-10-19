@@ -9,13 +9,13 @@ const Hero = () => {
 
   // Rasmlar massiv ko‘rinishida
   const heroImages = [
-    "/src/assets/hero1.png",
-    "/src/assets/hero2.png",
-    "/src/assets/hero3.png",
-    "/src/assets/hero4.png",
-    "/src/assets/hero5.png",
-    "/src/assets/hero6.jpg",
-    "/src/assets/hero7.png",
+    "https://files.ox-sys.com/cache/original/image/ee/d4/19/eed41952ad5f0b3a76feeeebeab1dc38d390fd5d58b4070b0c3fd1931222bc7a.png",
+    "https://files.ox-sys.com/cache/original/image/3b/a9/81/3ba9810e16fcef14d8f904093ff424104c832dd2af13252ce02e8378ba87db84.png",
+    "https://files.ox-sys.com/cache/original/image/88/e1/39/88e1395552993a636e53e8fb324870caee94ca9600a9f829db91167074162697.png",
+    "https://files.ox-sys.com/cache/original/image/9d/5d/00/9d5d00686fa6319048e6130559a2d98389ee1a0b71eb3c7b64e83e3893e106ab.png",
+    "https://files.ox-sys.com/cache/original/image/e1/d8/7b/e1d87b70967202804675505e8636a5073abec13ea8a9eadd054864ac73b29fbb.png",
+    "https://files.ox-sys.com/cache/original/image/ea/22/c1/ea22c1dca8df23e6e8dbe272e6170bb36a1d8db4e400dceb435ab918f72e935f.png",
+    "https://files.ox-sys.com/cache/original/image/87/c7/3e/87c73e6c77fa74668db6d726ca4518789c55874aaa081b2c480b9891205b0cf5.png"
   ];
 
   return (

@@ -18,27 +18,33 @@ const AdminPanel = () => {
     image: "",
   });
   const [editId, setEditId] = useState(null);
-
   const navigate = useNavigate();
 
-  // 🔹 LOGOUT funktsiyasi
+  // 🔹 Logout funktsiyasi
   const handleLogout = () => {
     if (window.confirm("Tizimdan chiqmoqchimisiz?")) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      navigate("/login"); // foydalanuvchini login sahifasiga qaytaradi
+      navigate("/login");
     }
   };
 
-  // --- Ma'lumotlarni olish ---
+  // --- 🔹 Ma’lumotlarni olish ---
   const getData = async () => {
     try {
       const [catRes, prodRes] = await Promise.all([
         axios.get("https://upg-zu5r.onrender.com/categories"),
         axios.get("https://upg-zu5r.onrender.com/products"),
       ]);
-      setCategories(catRes.data);
-      setProducts(prodRes.data);
+
+      // 🔍 Har xil formatdagi javoblarga moslashuv
+      const categoriesData = catRes.data.categories || catRes.data;
+      const productsData = prodRes.data.products || prodRes.data.data || prodRes.data;
+
+      setCategories(categoriesData);
+      setProducts(productsData);
+
+      console.log("🟢 Admin Panelga kelgan mahsulotlar:", productsData);
     } catch (err) {
       console.error("❌ Xatolik (GET):", err);
       alert("Server bilan bog‘lanishda xatolik!");
@@ -117,7 +123,7 @@ const AdminPanel = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* 🔹 HEADER va CHIQISH TUGMASI */}
+        {/* 🔹 Header va chiqish tugmasi */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-[#DB2777]">
             🛍️ Sevgicha Admin Panel
@@ -131,7 +137,7 @@ const AdminPanel = () => {
           </button>
         </div>
 
-        {/* --- FORM --- */}
+        {/* 🔹 Mahsulot form */}
         <form
           onSubmit={handleSubmit}
           className="bg-white shadow-md p-6 rounded-2xl mb-10 grid grid-cols-1 md:grid-cols-2 gap-4 border border-pink-100"
@@ -176,7 +182,7 @@ const AdminPanel = () => {
             required
           />
 
-          {/* --- Kategoriya tanlash --- */}
+          {/* Kategoriya tanlash */}
           <select
             className="border p-3 rounded-lg"
             value={form.category}
@@ -222,59 +228,58 @@ const AdminPanel = () => {
           </button>
         </form>
 
-        {/* --- TABLE --- */}
-        <table className="w-full bg-white rounded-xl shadow border border-pink-100">
-          <thead className="bg-[#DB2777] text-white">
-            <tr>
-              <th className="p-3 text-left">#</th>
-              <th className="p-3 text-left">Nomi</th>
-              <th className="p-3 text-left">Narx</th>
-              <th className="p-3 text-left">Kategoriya</th>
-              <th className="p-3 text-left">Brend</th>
-              <th className="p-3 text-left">Amallar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.length > 0 ? (
-              products.map((p, i) => (
-                <tr key={p._id} className="border-b hover:bg-pink-50">
-                  <td className="p-3">{i + 1}</td>
-                  <td className="p-3 font-medium">{p.name}</td>
-                  <td className="p-3 text-[#DB2777] font-semibold">
-                    {p.sellPrice || p.fullPrice} so‘m
-                  </td>
-                  <td className="p-3 text-gray-600">
-                    {p.category?.name || "Noma'lum"}
-                  </td>
-                  <td className="p-3">{p.trademark}</td>
-                  <td className="p-3 flex gap-3">
-                    <button
-                      onClick={() => handleEdit(p)}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      <Edit3 size={18} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(p._id)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+        {/* 🔹 Jadval */}
+        <div className="overflow-x-auto">
+          <table className="w-full bg-white rounded-xl shadow border border-pink-100">
+            <thead className="bg-[#DB2777] text-white">
+              <tr>
+                <th className="p-3 text-left">#</th>
+                <th className="p-3 text-left">Nomi</th>
+                <th className="p-3 text-left">Narx</th>
+                <th className="p-3 text-left">Kategoriya</th>
+                <th className="p-3 text-left">Brend</th>
+                <th className="p-3 text-left">Amallar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.length > 0 ? (
+                products.map((p, i) => (
+                  <tr key={p._id} className="border-b hover:bg-pink-50">
+                    <td className="p-3">{i + 1}</td>
+                    <td className="p-3 font-medium">{p.name}</td>
+                    <td className="p-3 text-[#DB2777] font-semibold">
+                      {p.sellPrice || p.fullPrice} so‘m
+                    </td>
+                    <td className="p-3 text-gray-600">
+                      {p.category?.name || "Noma'lum"}
+                    </td>
+                    <td className="p-3">{p.trademark}</td>
+                    <td className="p-3 flex gap-3">
+                      <button
+                        onClick={() => handleEdit(p)}
+                        className="text-blue-600 hover:text-blue-800"
+                      >
+                        <Edit3 size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p._id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="p-5 text-center text-gray-500 italic">
+                    Mahsulotlar yo‘q 😔
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan="6"
-                  className="p-5 text-center text-gray-500 italic"
-                >
-                  Mahsulotlar yo‘q 😔
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

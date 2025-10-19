@@ -8,7 +8,7 @@ const Auth = () => {
 
   const login = async (data) => {
     try {
-      const response = await axios.post("http://localhost:4200/auth/login", {
+      const response = await axios.post("https://upg-zu5r.onrender.com/auth/login", {
         username: data.username,
         password: data.password,
       });
@@ -19,7 +19,7 @@ const Auth = () => {
       const decoded = jwtDecode(response.data.token);
 
       const user = await axios
-        .get(`http://localhost:4200/users/${decoded.id}`)
+        .get(`https://upg-zu5r.onrender.com/users/${decoded.id}`)
         .then((data) => data.data);
 
       if (user.role[0] === "admin") {

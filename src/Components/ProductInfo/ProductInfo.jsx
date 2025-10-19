@@ -9,7 +9,7 @@ import { zustandStore } from '../../Hooks/zustandStore';
 import Breadcrumb from '../Navigation/Breadcrumb';
 
 async function getProduct(productId) {
-	const res = await axios.get(`http://localhost:4200/products/${productId}`);
+	const res = await axios.get(`https://upg-zu5r.onrender.com/products/${productId}`);
 	return res.data;
 }
 

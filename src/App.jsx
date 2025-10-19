@@ -23,7 +23,7 @@ import Aplata from "./Components/aplata/aplata";
 // 🔹 Login funksiyasi
 const loginFunction = async () => {
   try {
-    const login = await axios.post("http://localhost:4200/auth/login", {
+    const login = await axios.post("https://upg-zu5r.onrender.com/auth/login", {
 		username: "umar",
 		password: "umar1212",
     });
@@ -42,8 +42,8 @@ const App = () => {
     async function getInitialData() {
       try {
         const [categories, products] = await Promise.all([
-          axios.get("http://localhost:4200/categories"),
-          axios.get("http://localhost:4200/products"),
+          axios.get("https://upg-zu5r.onrender.com/categories"),
+          axios.get("https://upg-zu5r.onrender.com/products"),
         ]);
 
         setCategories(categories.data);

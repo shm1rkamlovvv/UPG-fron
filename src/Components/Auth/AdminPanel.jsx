@@ -34,8 +34,8 @@ const AdminPanel = () => {
   const getData = async () => {
     try {
       const [catRes, prodRes] = await Promise.all([
-        axios.get("http://localhost:4200/categories"),
-        axios.get("http://localhost:4200/products"),
+        axios.get("https://upg-zu5r.onrender.com/categories"),
+        axios.get("https://upg-zu5r.onrender.com/products"),
       ]);
       setCategories(catRes.data);
       setProducts(prodRes.data);
@@ -59,10 +59,10 @@ const AdminPanel = () => {
       };
 
       if (editId) {
-        await axios.put(`http://localhost:4200/products/${editId}`, newData);
+        await axios.put(`https://upg-zu5r.onrender.com/products/${editId}`, newData);
         alert("✅ Mahsulot yangilandi!");
       } else {
-        await axios.post("http://localhost:4200/products", newData);
+        await axios.post("https://upg-zu5r.onrender.com/products", newData);
         alert("✅ Mahsulot qo‘shildi!");
       }
 
@@ -105,7 +105,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Rostdan o‘chirmoqchimisiz?")) {
       try {
-        await axios.delete(`http://localhost:4200/products/${id}`);
+        await axios.delete(`https://upg-zu5r.onrender.com/products/${id}`);
         alert("🗑️ Mahsulot o‘chirildi!");
         getData();
       } catch (err) {

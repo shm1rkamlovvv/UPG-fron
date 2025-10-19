@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
       if (!token) return setAuthorized(false);
       try {
         const decoded = jwtDecode(token);
-        const user = await axios.get(`http://localhost:4200/users/${decoded.id}`);
+        const user = await axios.get(`https://upg-zu5r.onrender.com/users/${decoded.id}`);
         if (user.data.role[0] === "admin") setAuthorized(true);
         else setAuthorized(false);
       } catch (error) {

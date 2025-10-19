@@ -22,9 +22,8 @@ const Card = ({ product }) => {
   const [hoveredImageIndex, setHoveredImageIndex] = useState(0);
   const navigate = useNavigate();
 
-  if (!product) return null; // product bo‘lmasa chiqmasin
+  if (!product) return null;
 
-  // Tasvirlar yo‘q bo‘lsa default rasm
   const images =
     product.images && product.images.length > 0
       ? product.images
@@ -61,13 +60,23 @@ const Card = ({ product }) => {
 
   const handleClick = () => navigate(`/products/${product._id}`);
 
-  // Narxlarni xavfsiz ko‘rsatish
   const fullPrice = product.fullPrice || product.price || 0;
   const sellPrice = product.sellPrice || product.price || 0;
 
   return (
-    <div className="w-[275px] h-[420px] bg-white dark:bg-[#1a1a2e] border border-pink-100 rounded-2xl shadow-md hover:shadow-xl p-4 relative group transition-all duration-500">
-      {/* ❤️ Favorite Icon */}
+    <div
+      className="
+        bg-white dark:bg-[#1a1a2e]
+        border border-pink-100
+        rounded-2xl shadow-md hover:shadow-xl
+        transition-all duration-500
+        p-4 relative group
+        w-full sm:w-[275px]
+        h-auto sm:h-[420px]
+        flex flex-col justify-between
+      "
+    >
+      {/* ❤️ Favorite */}
       <button
         onClick={handleFavorite}
         className="absolute top-3 right-3 z-10 text-xl transition-all hover:scale-110"
@@ -84,12 +93,16 @@ const Card = ({ product }) => {
         onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="cursor-pointer flex justify-center items-center"
+        className="cursor-pointer flex justify-center items-center w-full"
       >
         <img
           src={images[hoveredImageIndex]}
           alt={product.name || product.title || "Mahsulot"}
-          className="w-[240px] h-[240px] object-contain rounded-xl transition-transform duration-300 group-hover:scale-105"
+          className="
+            w-full sm:w-[240px] h-[200px] sm:h-[240px]
+            object-contain rounded-xl
+            transition-transform duration-300 group-hover:scale-105
+          "
         />
       </div>
 

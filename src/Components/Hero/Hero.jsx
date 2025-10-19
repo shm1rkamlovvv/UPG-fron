@@ -7,7 +7,7 @@ import Reklama from "../Reklama/Reklama";
 const Hero = () => {
   const { categories } = zustandStore();
 
-  // Rasmlar massiv ko‘rinishida
+  // 🔹 Rasmlar ro‘yxati
   const heroImages = [
     "https://files.ox-sys.com/cache/original/image/ee/d4/19/eed41952ad5f0b3a76feeeebeab1dc38d390fd5d58b4070b0c3fd1931222bc7a.png",
     "https://files.ox-sys.com/cache/original/image/3b/a9/81/3ba9810e16fcef14d8f904093ff424104c832dd2af13252ce02e8378ba87db84.png",
@@ -21,7 +21,7 @@ const Hero = () => {
   return (
     <div className="flex flex-col gap-6 px-4 sm:px-8 lg:px-14 dark:text-white font-golos duration-1000">
 
-      {/* 🖼️ UPG Carousel */}
+      {/* 🖼️ Reklamali karusel */}
       <div className="mt-6">
         <Carousel
           autoplay
@@ -31,7 +31,7 @@ const Hero = () => {
           className="rounded-2xl shadow-lg overflow-hidden"
           navigation={({ setActiveIndex, activeIndex, length }) => (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {new Array(length).fill("").map((_, i) => (
+              {Array.from({ length }).map((_, i) => (
                 <span
                   key={i}
                   className={`block h-[6px] w-[24px] cursor-pointer rounded-full transition-all duration-300 ${
@@ -47,23 +47,23 @@ const Hero = () => {
             <img
               key={i}
               src={src}
-              alt={`hero-${i + 1}`}
+              alt={`reklama-${i + 1}`}
               className="h-[180px] sm:h-[280px] md:h-[400px] lg:h-[500px] w-full object-cover"
             />
           ))}
         </Carousel>
       </div>
 
-      {/* 🛍️ Productlar */}
+      {/* 🛍️ Productlar ro‘yxati */}
       <div className="flex flex-wrap gap-4 justify-center mt-4">
         {categories.map((category) =>
           category.products.map((product) => (
-            <Card product={product} key={product._id} />
+            <Card key={product._id} product={product} />
           ))
         )}
       </div>
 
-      {/* 📢 Reklama */}
+      {/* 📢 Reklama joyi */}
       <Reklama />
     </div>
   );

@@ -1,14 +1,15 @@
 // components/MiniCart.jsx
 import React from "react";
 import { zustandStore } from "../../Hooks/zustandStore";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const MiniCart = () => {
   const { cart, products } = zustandStore();
 
-  const cartProducts = cart.map((id) =>
-    products.find((product) => product._id === id)
-  );
+  // cartdagi productlarni topamiz, ammo null yoki undefinedlarni filtrlab tashlaymiz
+  const cartProducts = cart
+    .map((id) => products.find((product) => product?._id === id))
+    .filter(Boolean); // undefined bo'lganlarini olib tashlaydi
 
   return (
     <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-blue border shadow-xl rounded-xl p-4 z-50">
@@ -24,16 +25,16 @@ const MiniCart = () => {
               className="flex items-center gap-2 border-b pb-2"
             >
               <img
-                src={product.images[0]}
-                alt={product.name}
+                src={product.images?.[0] || "/placeholder.png"} // agar image bo'lmasa, placeholder chiqadi
+                alt={product.name || "Mahsulot"}
                 className="w-12 h-12 rounded object-cover"
               />
               <div className="flex-1">
                 <p className="text-sm font-semibold dark:text-white">
-                  {product.name}
+                  {product.name || "Noma’lum mahsulot"}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-300">
-                  {product.sellPrice.toLocaleString()} so'm
+                  {(product.sellPrice || 0).toLocaleString()} so'm
                 </p>
               </div>
             </div>
